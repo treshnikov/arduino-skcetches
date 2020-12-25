@@ -9,7 +9,9 @@ int yPosition = 0;
 int buttonState = 0;
 bool ledEnabled = false;
 
-void setup() {
+void setup() 
+{
+    // control servo motor using port #10
     servo.attach(10); 
   
     Serial.begin(9600);
@@ -20,35 +22,42 @@ void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
 }
 
-void loop() {
+void loop() 
+{
     xPosition = analogRead(xPin);
     yPosition = analogRead(yPin);
     buttonState = digitalRead(buttonPin);
 
-    //Serial.print("X: ");
-    //Serial.print(xPosition);
-    //Serial.print(" | Y: ");
-    //Serial.print(yPosition);
-    //Serial.print(" | Button: ");
-    //Serial.println(buttonState);
+    //logJoystickInfo();
 
-    if (yPosition >= 1023) {
+    // control servo motor by joystick Y-axis
+    if (yPosition >= 1020) {
         servo.write(0);
-    }
-
-    if (yPosition <= 1) {
+    } else
+    if (yPosition <= 5) {
         servo.write(180); 
     }
 
-    if (xPosition >= 1021 || xPosition <= 2 || buttonState == 0) {
+    // control led by joystick X-axis and joystick button
+    if (xPosition >= 1020 || xPosition <= 5 || buttonState == 0) {
       ledEnabled = !ledEnabled;  
+
+        if (ledEnabled) {
+            digitalWrite(LED_BUILTIN, HIGH);
+        } else {
+            digitalWrite(LED_BUILTIN, LOW);
+        }
     }
     
-    if (ledEnabled) {
-        digitalWrite(LED_BUILTIN, HIGH);
-    } else {
-        digitalWrite(LED_BUILTIN, LOW);
-    }
-
     delay(200); 
+}
+
+void logJoystickInfo()
+{
+    Serial.print("X: ");
+    Serial.print(xPosition);
+    Serial.print(" | Y: ");
+    Serial.print(yPosition);
+    Serial.print(" | Button: ");
+    Serial.println(buttonState);    
 }
