@@ -1,4 +1,6 @@
 # arduino-skcetches
+Building fun things to involve kids in programming.
+
 Set of sketches:
 - `joystick-and-led.ino` - control led and servo motor using joystick.
 
