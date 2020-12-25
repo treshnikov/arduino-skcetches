@@ -31,20 +31,26 @@ void loop()
     //logJoystickInfo();
 
     // control servo motor by joystick Y-axis
-    if (yPosition >= 1020) {
+    if (yPosition >= 1020) 
+    {
         servo.write(0);
-    } else
-    if (yPosition <= 5) {
+    } 
+    else if (yPosition <= 5) 
+    {
         servo.write(180); 
     }
 
     // control led by joystick X-axis and joystick button
-    if (xPosition >= 1020 || xPosition <= 5 || buttonState == 0) {
-      ledEnabled = !ledEnabled;  
+    if (xPosition >= 1020 || xPosition <= 5 || buttonState == 0) 
+    {
+        ledEnabled = !ledEnabled;  
 
-        if (ledEnabled) {
+        if (ledEnabled) 
+        {
             digitalWrite(LED_BUILTIN, HIGH);
-        } else {
+        } 
+        else 
+        {
             digitalWrite(LED_BUILTIN, LOW);
         }
     }
